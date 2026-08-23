@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#159447">
+  <title>فروشگاه روزمره | خرید آنلاین مواد غذایی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-top container">
+      <a class="brand" href="index.html" aria-label="صفحه اصلی">
+        <span class="brand-mark">✓</span>
+        <span><strong>فروشگاه روزمره</strong><small>خرید آسان، زندگی ساده‌تر</small></span>
+      </a>
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="جستجوی محصول؛ مثلاً شیر، برنج، چای..." autocomplete="off">
+      </div>
+      <div class="header-actions">
+        <a class="outline-btn" href="#orders">سفارش‌های من</a>
+        <button class="cart-btn" id="cartBtn">سبد خرید <b id="cartCount">۰</b></button>
+        <a class="admin-link" href="admin.html">ورود مدیر 🔐</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow">خرید روزانه، بدون دردسر</span>
+        <h1>هر چیزی که برای<br><em>خانه‌تان</em> لازم دارید.</h1>
+        <p>محصولات غذایی و کالاهای مصرفی روزمره با قیمت فروشگاهی و سفارش آسان.</p>
+        <a href="#products" class="primary-btn">مشاهده محصولات <span>←</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="hero-orb orb-a"></div><div class="hero-orb orb-b"></div>
+        <div class="hero-basket">
+          <div class="basket-handle"></div><div class="basket-body">
+            <span>🥛</span><span>🍚</span><span>🧃</span><span>🍪</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="products">
+      <div class="section-head">
+        <div><span class="eyebrow">انتخاب امروز</span><h2>محصولات ویژه</h2></div>
+        <div class="filter-pills">
+          <button class="pill active" data-filter="all">همه</button>
+          <button class="pill" data-filter="discount">تخفیف‌دار</button>
+          <button class="pill" data-filter="popular">پرفروش</button>
+          <button class="pill" data-filter="new">جدید</button>
+        </div>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+      <div id="emptyState" class="empty-state hidden">محصولی با این عبارت پیدا نشد.</div>
+    </section>
+
+    <section class="trust-strip container">
+      <div><span>🚚</span><strong>تحویل مطمئن</strong><small>سفارش شما با دقت آماده می‌شود</small></div>
+      <div><span>💳</span><strong>قیمت شفاف</strong><small>قیمت فروشگاه همیشه مشخص است</small></div>
+      <div><span>📦</span><strong>بسته‌بندی دقیق</strong><small>محصولات با دقت آماده ارسال می‌شوند</small></div>
+      <div><span>🔒</span><strong>اطلاعات امن</strong><small>اطلاعات سفارش شما محفوظ می‌ماند</small></div>
+    </section>
+
+    <section class="orders-section container" id="orders">
+      <div class="section-head compact"><div><span class="eyebrow">پیگیری خرید</span><h2>سفارش‌های من</h2></div></div>
+      <div class="order-lookup">
+        <input id="phoneLookup" inputmode="tel" placeholder="شماره موبایل خود را وارد کنید">
+        <button class="primary-btn" id="lookupOrders">مشاهده سفارش‌ها</button>
+      </div>
+      <div id="ordersResult"></div>
+    </section>
+  </main>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-head"><h3>سبد خرید</h3><button id="closeCart">×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-foot">
+      <div><span>جمع سبد</span><strong id="cartTotal">۰ تومان</strong></div>
+      <button class="primary-btn full" id="checkoutBtn">ادامه و ثبت سفارش</button>
+    </div>
+  </aside>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <div class="modal" id="checkoutModal">
+    <div class="modal-card">
+      <button class="modal-close" data-close="checkoutModal">×</button>
+      <span class="eyebrow">تکمیل سفارش</span><h2>اطلاعات تحویل</h2>
+      <form id="checkoutForm">
+        <label>نام و نام خانوادگی<input required name="name" autocomplete="name"></label>
+        <label>شماره موبایل<input required name="phone" inputmode="tel" autocomplete="tel"></label>
+        <label>آدرس کامل<textarea required name="address" rows="3"></textarea></label>
+        <label>توضیحات سفارش <small>(اختیاری)</small><textarea name="note" rows="2"></textarea></label>
+        <div id="checkoutSummary" class="checkout-summary"></div>
+        <button class="primary-btn full" type="submit">ثبت نهایی سفارش</button>
+      </form>
+      <p id="checkoutMessage" class="form-message"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>فروشگاه روزمره</strong><p>محصولات غذایی و کالاهای روزمره، ساده و مطمئن.</p></div>
+      <div><strong>راهنما</strong><a href="#orders">پیگیری سفارش</a><a href="admin.html">ورود مدیر</a></div>
+      <div><strong>پشتیبانی</strong><p>شنبه تا پنجشنبه · ۹ تا ۲۱</p></div>
+    </div>
+    <div class="footer-bottom">© تمامی حقوق برای فروشگاه روزمره محفوظ است.</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
