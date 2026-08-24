@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فاکتور خرید | فروشگاه معیلی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+<style>
+body{padding-bottom:20px}
+.invoice-wrap{max-width:680px;margin:18px auto;padding:0 14px}
+.invoice{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.invoice-head{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:16px}
+.invoice-logo{display:flex;align-items:center;gap:9px}
+.invoice-logo strong{font-size:15px}
+.invoice-meta{text-align:left;font-size:10px;color:var(--ink-soft);line-height:2}
+.customer-box{background:var(--bg);border-radius:12px;padding:13px;margin:16px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10.5px}
+.customer-box b{display:block;font-size:11.5px;color:var(--ink);margin-top:3px}
+.invoice table{width:100%;border-collapse:collapse;font-size:10.5px}
+.invoice th,.invoice td{text-align:right;padding:10px 6px;border-bottom:1px solid var(--line)}
+.invoice th{color:var(--ink-soft);font-weight:700}
+.invoice-total{margin-top:16px;margin-right:auto;width:min(300px,100%);font-size:11px}
+.invoice-total div{display:flex;justify-content:space-between;padding:5px 0}
+.invoice-total .final{font-size:15px;font-weight:800;border-top:1px solid var(--line);margin-top:5px;padding-top:10px}
+.payment-box{background:var(--primary-soft);border-radius:12px;padding:15px;margin-top:16px;font-size:11.5px;line-height:2.1;color:var(--primary-deep)}
+.payment-box strong{font-size:13px}
+.invoice-number-highlight{margin:16px 0;padding:15px;border:1px dashed var(--primary);background:var(--primary-soft);border-radius:14px;text-align:center}.invoice-number-highlight span{display:block;color:var(--ink-soft);font-size:10px}.invoice-number-highlight strong{display:block;font-size:28px;letter-spacing:3px;color:var(--primary-deep);margin:3px 0}.invoice-number-highlight small{font-size:9px;color:var(--ink-soft)}.invoice-actions{display:flex;gap:8px;margin-top:16px}
+.invoice-actions .primary-btn{flex:1}
+@media(max-width:600px){.invoice{padding:15px;border-radius:15px}.invoice-head{flex-direction:column}.invoice-meta{text-align:right}.customer-box{grid-template-columns:1fr}}
+@media print{body{background:#fff;padding-bottom:0}.invoice-wrap{margin:0;max-width:none}.invoice{box-shadow:none}.invoice-actions{display:none}.site-header,.footer,.bottom-nav{display:none!important}}
+</style>
+</head><body>
+<div class="invoice-wrap"><div class="invoice" id="invoice">
+  <div class="invoice-head">
+    <div class="invoice-logo"><span class="brand-mark" id="invoiceLogo">🧺</span><div><strong>فروشگاه معیلی</strong><small style="display:block;color:var(--ink-soft)">رسید خرید • فاکتور رسمی فروشگاه</small></div></div>
+    <div class="invoice-meta" id="meta"></div>
+  </div>
+  <div class="customer-box" id="customer"></div>
+  <table><thead><tr><th>محصول</th><th>تعداد</th><th>قیمت</th><th>تخفیف</th><th>مبلغ</th></tr></thead><tbody id="items"></tbody></table>
+  <div class="invoice-number-highlight">
+    <span>شماره پیگیری / فاکتور</span>
+    <strong id="invoiceNumber">—</strong>
+    <small>این شماره را برای پیگیری نگه دارید.</small>
+  </div>
+  <div class="invoice-total" id="totals"></div>
+  <div class="payment-box">
+    <strong>پرداخت سفارش</strong><br>
+    لطفاً واریزی خود را به شماره کارت <strong>6037998167313518</strong><br>
+    به نام <strong>ریحانه آزادی مقدم آرانی</strong> انجام دهید<br>
+    و رسید واریز را به آیدی <strong>@Ali_ak200</strong> ارسال کنید.
+  </div>
+  <div class="invoice-actions"><button class="primary-btn" onclick="window.print()">دانلود / چاپ فاکتور</button><a class="outline-btn" href="index.html">بازگشت به فروشگاه</a></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const CONFIG={SUPABASE_URL:"https://uvvbugnapdxnarartxvy.supabase.co",SUPABASE_ANON_KEY:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2dmJ1Z25hcGR4bmFyYXJ0eHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0NjkyNzUsImV4cCI6MjEwMzA0NTI3NX0.W_3xAz8rw6MzGbxc0gqMfM_cZA5SRvw2vB80QForuMU"};const sb=supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY);
+const money=n=>new Intl.NumberFormat("fa-IR").format(Math.round(Number(n)||0))+" تومان",esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+(async()=>{
+  const q=new URLSearchParams(location.search),no=q.get("order"),phone=q.get("phone")||localStorage.getItem("moeili_phone")||"";
+  if(!no){fail("شماره فاکتور مشخص نیست.");return}
+  if(!/^09\\d{9}$/.test(phone)){fail("برای مشاهده فاکتور، شماره موبایلی که با آن سفارش ثبت شده را وارد کنید.");return}
+  localStorage.setItem("moeili_phone",phone);
+  const settings=await sb.from("site_settings").select("*");
+  if(!settings.error)(settings.data||[]).forEach(x=>{
+    if(x.key==="logo_url"&&x.value)document.getElementById("invoiceLogo").innerHTML=`<img src="${esc(x.value)}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`;
+  });
+  const r=await sb.rpc("get_order_by_number",{p_order_number:no,p_phone:phone});
+  const o=r.error?null:r.data?.[0];
+  if(!o){fail("این فاکتور برای این شماره موبایل پیدا نشد.");return}
+  render(o);
+})();
+function fail(msg){document.getElementById("invoice").innerHTML=`<div class="empty-state">${esc(msg)}</div><div class="invoice-actions"><a class="outline-btn full" href="index.html">بازگشت به فروشگاه</a></div>`}
+function render(o){
+  document.getElementById("invoiceNumber").textContent=o.order_number;
+  document.getElementById("meta").innerHTML=`شماره فاکتور: <b>${esc(o.order_number)}</b><br>تاریخ: ${new Date(o.created_at).toLocaleDateString("fa-IR")}<br>ساعت: ${new Date(o.created_at).toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"})}`;
+  document.getElementById("customer").innerHTML=`<div>نام مشتری<b>${esc(o.customer_name)}</b></div><div>شماره موبایل<b>${esc(o.phone)}</b></div><div>روش دریافت<b>${o.delivery_method==="delivery"?"ارسال به آدرس":"تحویل حضوری از فروشگاه"}</b></div><div>هزینه ارسال<b>${money(o.shipping_cost||0)}</b></div><div style="grid-column:1/-1">آدرس<b>${esc(o.address)}</b></div>`;
+  const items=o.items||[];
+  document.getElementById("items").innerHTML=items.map(i=>`<tr><td>${esc(i.product_name)}</td><td>${i.quantity}</td><td>${money(i.store_price||i.unit_price)}</td><td>${money((i.consumer_price-(i.store_price||i.unit_price))*i.quantity)}</td><td>${money((i.store_price||i.unit_price)*i.quantity)}</td></tr>`).join("");
+  document.getElementById("totals").innerHTML=`<div><span>جمع قیمت مصرف‌کننده</span><b>${money(o.subtotal)}</b></div><div><span>مجموع تخفیف</span><b>${money(o.discount_total)}</b></div><div class="final"><span>مبلغ نهایی</span><b>${money(o.final_total)}</b></div>`;
+}
+</script></body></html>
