@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FF5A1F">
+  <title>پنل مدیریت | فروشگاه معیلی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+  <div id="loginView" class="admin-login">
+    <a href="index.html" class="back-home">← بازگشت به فروشگاه</a>
+    <div class="login-card">
+      <div class="brand centered"><span class="brand-mark">🧺</span><span><strong>فروشگاه معیلی</strong><small>پنل مدیریت</small></span></div>
+      <h1>ورود مدیر 🔐</h1><p>برای مدیریت محصولات و سفارش‌ها وارد شوید.</p>
+      <form id="loginForm">
+        <label>ایمیل<input required type="email" name="email" autocomplete="username"></label>
+        <label>رمز عبور<input required type="password" name="password" autocomplete="current-password"></label>
+        <button class="primary-btn full" type="submit">ورود به پنل</button>
+      </form>
+      <div id="loginMessage" class="form-message"></div>
+    </div>
+  </div>
+
+  <div id="adminApp" class="admin-app hidden">
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <a class="brand" href="index.html"><span class="brand-mark">🧺</span><span><strong>فروشگاه معیلی</strong><small>مدیریت فروشگاه</small></span></a>
+        <div class="admin-actions"><span id="adminEmail"></span><button class="outline-btn" id="logoutBtn">خروج</button></div>
+      </div>
+    </header>
+    <main class="container admin-main">
+      <div class="admin-title"><div><span class="eyebrow">مدیریت</span><h1>داشبورد فروشگاه</h1></div><button class="primary-btn" id="newProductBtn">+ محصول جدید</button></div>
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="admin-tabs">
+        <button class="tab active" data-tab="productsTab">محصولات</button>
+        <button class="tab" data-tab="ordersTab">سفارش‌ها</button>
+        <button class="tab" data-tab="categoriesTab">دسته‌بندی‌ها</button>
+        <button class="tab" data-tab="customersTab">مشتری‌ها</button>
+        <button class="tab" data-tab="settingsTab">تنظیمات</button>
+      </div>
+
+      <section id="productsTab" class="admin-panel">
+        <div class="panel-head"><h2>مدیریت محصولات</h2><input id="adminSearch" placeholder="جستجوی محصول..."></div>
+        <div id="adminProducts" class="admin-products"></div>
+      </section>
+
+      <section id="ordersTab" class="admin-panel hidden">
+        <div class="panel-head"><h2>مدیریت سفارش‌ها</h2><select id="statusFilter"><option value="">همه وضعیت‌ها</option><option>ثبت شده</option><option>تأیید شده</option><option>آماده ارسال</option><option>در حال ارسال</option><option>تحویل شده</option><option>لغو شده</option></select></div>
+        <div id="adminOrders" class="admin-orders"></div>
+      </section>
+
+      <section id="customersTab" class="admin-panel hidden">
+        <div class="panel-head"><h2>مشتری‌ها</h2><button class="primary-btn" id="customersPdfBtn">PDF / چاپ</button></div>
+        <div id="customersList" class="admin-orders"></div>
+      </section>
+      <section id="settingsTab" class="admin-panel hidden">
+        <div class="admin-panel-inner">
+          <h2>تنظیمات فروشگاه</h2>
+          <form id="settingsForm" class="form-grid">
+            <label>بنر صفحه اول<input type="file" id="bannerImage" accept="image/*"><small>عکس دلخواه برای بنر ورود</small></label>
+            <label>لوگو<input type="file" id="logoImage" accept="image/*"><small>ترجیحاً تصویر مربعی ۱×۱</small></label>
+            <label>هزینه ارسال (تومان)<input type="number" min="0" name="shipping_cost"></label>
+            <label class="check-row"><input type="checkbox" name="shipping_enabled"> ارسال فعال باشد</label>
+            <button class="primary-btn" type="submit" style="grid-column:1/-1">ذخیره تنظیمات</button>
+          </form>
+          <div id="settingsMessage" class="form-message"></div>
+        </div>
+      </section>
+      <section id="categoriesTab" class="admin-panel hidden">
+        <div class="panel-head"><h2>مدیریت دسته‌بندی‌ها</h2></div>
+        <div class="category-manager" id="categoryManager"></div>
+        <form id="categoryForm" class="form-grid" style="align-items:end">
+          <label>نام دسته‌بندی جدید<input required name="name" id="newCategoryName"></label>
+          <label>رنگ<input type="color" name="color" id="newCategoryColor" value="#FF5A1F"></label>
+          <button class="primary-btn" type="submit" style="grid-column:1/-1">افزودن دسته‌بندی</button>
+        </form>
+        <div id="categoryMessage" class="form-message"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="productModal">
+    <div class="modal-card wide">
+      <button class="modal-close" data-close="productModal">×</button>
+      <span class="eyebrow">محصول</span><h2 id="productModalTitle">افزودن محصول</h2>
+      <form id="productForm">
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label>نام محصول<input required name="name"></label>
+          <label>واحد فروش<input required name="unit" placeholder="عدد، کیلو، بسته..."></label>
+          <label>قیمت مصرف‌کننده (تومان)<input required type="number" min="0" step="1" name="consumer_price"></label>
+          <label>قیمت فروشگاه (تومان)<input required type="number" min="0" step="1" name="store_price"></label>
+          <label>موجودی<input required type="number" min="0" step="1" name="stock"></label>
+          <label class="file-label">عکس محصول<input id="productImage" type="file" accept="image/*"><small>انتخاب مستقیم از گالری گوشی</small></label>
+        </div>
+        <label>توضیحات<textarea name="description" rows="4"></textarea></label>
+        <div class="toggle-grid">
+          <label class="check-row"><input type="checkbox" name="is_visible" checked> محصول منتشر شود (👁)</label>
+          <label class="check-row"><input type="checkbox" name="show_discount_badge" checked> نشان تخفیف نمایش داده شود</label>
+          <label class="check-row"><input type="checkbox" name="store_price_enabled" checked> قیمت فروشگاه فعال باشد</label>
+          <label class="check-row"><input type="checkbox" name="is_popular"> محصول در «پرفروش‌ها» نمایش داده شود</label>
+        </div>
+        <div class="image-preview" id="imagePreview"></div>
+        <label>دسته‌بندی‌های محصول<div class="cat-checks" id="productCatChecks"></div></label>
+        <div class="discount-preview">تخفیف محاسبه‌شده: <strong id="discountPreview">۰٪</strong></div>
+        <div id="productMessage" class="form-message"></div>
+        <button class="primary-btn full" type="submit">ذخیره محصول</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
