@@ -1,0 +1,359 @@
+/* === فروشگاه معیلی — طراحی تمیز، مینیمال و موبایل‌محور (الهام از اپ‌های فروشگاهی حرفه‌ای) === */
+:root{
+  --bg:#F7F7F8; --surface:#FFFFFF; --line:#EFEFEF;
+  --ink:#18181A; --ink-soft:#8B8D92; --ink-mute:#B4B6BA;
+  --primary:#FF5A1F; --primary-soft:#FFF1EA; --primary-deep:#DE4A14; --page-glow:#FFF7F2;
+  --green:#1AA260; --danger:#E0483D;
+  --radius:16px; --radius-sm:11px; --shadow:0 2px 14px #00000010;
+}
+*{box-sizing:border-box}
+body{padding-bottom:84px}
+html{scroll-behavior:smooth}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.45;background-image:radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--primary) 10%,transparent) 1px,transparent 0);background-size:24px 24px}
+body{margin:0;background:radial-gradient(circle at 8% 0%,var(--page-glow) 0,transparent 34%),radial-gradient(circle at 92% 18%,color-mix(in srgb,var(--primary) 8%,white) 0,transparent 30%),linear-gradient(180deg,color-mix(in srgb,var(--bg) 88%,white) 0%,var(--bg) 50%,color-mix(in srgb,var(--bg) 92%,var(--primary)) 100%);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;padding-bottom:78px;min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(680px,calc(100% - 28px));margin:auto}
+.hidden{display:none!important}
+svg{display:block}
+
+/* === هدر === */
+.site-header{background:var(--surface);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}
+.header-top{min-height:60px;display:flex;align-items:center;gap:12px;padding:8px 0}
+.brand{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:18px}
+.brand strong{display:block;font-size:15px}
+.brand small{display:block;color:var(--ink-soft);font-size:9.5px;margin-top:1px}
+.header-actions{margin-right:auto}
+.admin-link{font-size:10px;color:var(--ink-mute)}
+.search-wrap{height:44px;background:var(--bg);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:8px;padding:0 13px;margin:0 0 10px}
+.search-wrap svg{color:var(--ink-soft);flex:none}
+.search-wrap input{border:0;background:transparent;outline:0;width:100%;font-size:13px;color:var(--ink)}
+
+/* === بنر معرفی فروشگاه === */
+.info-strip{background:linear-gradient(135deg,var(--primary),#FF8A50);border-radius:var(--radius);padding:18px 20px;color:#fff;margin:12px 0 6px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.info-strip h1{font-size:16px;margin:0 0 4px;font-weight:800}
+.info-strip p{margin:0;font-size:10.5px;opacity:.92;line-height:1.9}
+.info-strip a{background:#ffffff2a;border:1px solid #ffffff55;border-radius:9px;padding:8px 12px;font-size:10.5px;font-weight:700;white-space:nowrap}
+
+/* === بخش‌ها === */
+.section{padding:20px 0 8px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-head h2{margin:0;font-size:15px;font-weight:800}
+.filter-pills{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:12px;scrollbar-width:none}
+.filter-pills::-webkit-scrollbar{display:none}
+.pill{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:7px 13px;color:var(--ink-soft);font-size:11px;font-weight:600}
+.pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* === تراشه‌های دسته‌بندی === */
+.chip-row{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;scrollbar-width:none}
+.chip-row::-webkit-scrollbar{display:none}
+.cat-chip{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:20px;padding:8px 14px;font-size:11.5px;font-weight:700;color:var(--ink);position:relative;padding-right:22px}
+.cat-chip::before{content:"";position:absolute;right:9px;top:50%;transform:translateY(-50%);width:7px;height:7px;border-radius:50%;background:var(--c,var(--primary))}
+.cat-chip.active{background:var(--c,var(--primary));border-color:var(--c,var(--primary));color:#fff}
+.cat-chip.active::before{background:#fff}
+
+/* === کارت محصول === */
+.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.product-card{content-visibility:auto;contain-intrinsic-size:260px;background:var(--surface);border-radius:var(--radius);padding:10px;position:relative;box-shadow:var(--shadow)}
+.product-image{aspect-ratio:1/1;height:auto;background:var(--bg);border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative}
+.product-image img{width:100%;height:100%;object-fit:contain}
+.product-image .placeholder{font-size:38px}
+.discount-badge{position:absolute;top:7px;right:7px;background:var(--danger);color:#fff;border-radius:999px;min-width:34px;height:34px;padding:0 7px;display:grid;place-items:center;font-size:9px;font-weight:800;z-index:3}
+.stock{font-size:9.5px;color:var(--green);margin-top:8px;font-weight:600}
+.stock.out{color:var(--danger)}
+.product-card h3{font-size:12px;margin:4px 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+.prices{display:flex;align-items:end;justify-content:space-between;gap:4px}
+.consumer{text-decoration:line-through;color:var(--ink-mute);font-size:9.5px}
+.final-price{font-size:14px;font-weight:800}
+.unit{font-size:8.5px;color:var(--ink-soft)}
+.add-btn{width:100%;margin-top:9px;border:0;background:var(--ink);color:#fff;border-radius:10px;padding:9px;font-size:11.5px;font-weight:700}
+.add-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* === پیگیری سفارش / دکمه‌های خط‌دار === */
+.orders-section{padding:20px 0}
+.order-lookup{display:flex;gap:10px}
+.order-lookup input,.modal-card input,.modal-card textarea,.panel-head input,.panel-head select,.auth-form input{border:1.5px solid var(--line);background:var(--bg);border-radius:11px;padding:12px;outline:0;width:100%;color:var(--ink)}
+.order-lookup input:focus,.modal-card input:focus,.modal-card textarea:focus,.auth-form input:focus{border-color:var(--primary)}
+.order-card{background:var(--surface);border-radius:14px;padding:13px;margin-top:9px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow)}
+.order-card strong{font-size:12px}
+.status{font-size:9.5px;padding:5px 9px;border-radius:20px;background:var(--primary-soft);color:var(--primary-deep);font-weight:700;white-space:nowrap}
+.outline-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 11px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.primary-btn{border:0;background:var(--primary);color:#fff;border-radius:12px;padding:13px 22px;font-weight:800;font-size:13px}
+
+/* === فوتر === */
+.footer{background:var(--surface);border-top:1px solid var(--line);margin-top:16px;padding:26px 0}
+.footer strong{display:block;font-size:14px;margin-bottom:6px}
+.footer p,.footer a{display:block;color:var(--ink-soft);font-size:10.5px;line-height:2}
+.footer-bottom{text-align:center;color:var(--ink-mute);font-size:9px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+
+/* === سبد خرید کناری === */
+.cart-drawer{position:fixed;z-index:90;right:0;top:0;height:100%;width:min(400px,94vw);background:var(--surface);transform:translateX(105%);transition:.25s;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.drawer-overlay{position:fixed;inset:0;background:#0d0d0e66;z-index:85;display:none}
+.drawer-overlay.open{display:block}
+.drawer-head{padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.drawer-head h3{font-size:15px;font-weight:800;margin:0}
+.drawer-head button,.modal-close{border:0;background:transparent;font-size:24px;color:var(--ink-soft)}
+.cart-items{overflow:auto;flex:1;min-height:0;padding:12px 16px}
+.cart-row{display:grid;grid-template-columns:56px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-row img,.cart-thumb{width:56px;height:56px;border-radius:10px;object-fit:contain;background:var(--bg);display:grid;place-items:center;font-size:20px}
+.cart-row h4{font-size:11.5px;margin:2px 0 8px}
+.qty{display:flex;align-items:center;gap:7px}
+.qty button{width:24px;height:24px;border:1px solid var(--line);background:var(--surface);border-radius:7px;color:var(--ink)}
+.qty span{min-width:14px;text-align:center;font-size:11px}
+.qty .small-btn{margin-right:5px}
+.cart-price{font-size:11.5px;font-weight:800}
+.drawer-foot{padding:16px 16px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--surface);position:relative;z-index:2}
+.drawer-foot>div{display:flex;justify-content:space-between;margin-bottom:12px;font-size:11.5px}
+.full{width:100%}
+
+/* === مودال‌ها و شیت‌ها === */
+.modal{position:fixed;inset:0;background:#0d0d0e66;z-index:110;display:none;place-items:center;padding:14px}
+.modal.open{display:grid}
+.modal-card{background:var(--surface);border-radius:20px;width:min(480px,100%);max-height:90vh;overflow:auto;padding:22px;position:relative}
+.modal-card.wide{width:min(720px,100%)}
+.modal-card h2{margin:4px 0 18px;font-size:18px}
+.modal-card label,.auth-form label{display:block;font-size:11px;font-weight:700;margin-bottom:11px;color:var(--ink-soft)}
+.modal-card label input,.modal-card label textarea,.auth-form label input{margin-top:6px;color:var(--ink);font-weight:600}
+.checkout-summary{background:var(--bg);border-radius:12px;padding:12px;margin:10px 0;font-size:11px}
+.checkout-summary div{display:flex;justify-content:space-between;padding:3px 0}
+.form-message{font-size:11px;color:var(--danger);margin-top:9px;font-weight:600}
+.empty-state{text-align:center;background:var(--surface);padding:32px 20px;border-radius:14px;color:var(--ink-soft);font-size:12px}
+.empty-state .big-emoji{font-size:40px;display:block;margin-bottom:10px}
+
+/* === شیت پایین (دسته‌بندی/حساب/سفارش‌ها) === */
+.sheet{position:fixed;inset:0;background:#0d0d0e66;z-index:105;display:none;align-items:flex-end}
+.sheet.open{display:flex}
+.sheet-card{background:var(--surface);width:100%;max-height:85vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px}
+.sheet-handle{width:38px;height:4px;background:var(--line);border-radius:5px;margin:0 auto 12px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sheet-head h3{font-size:15px;font-weight:800;margin:0}
+.sheet-head button{border:0;background:transparent;font-size:22px;color:var(--ink-soft)}
+.sheet-cats{display:flex;flex-wrap:wrap;gap:8px}
+
+/* === حساب کاربری === */
+.account-avatar{width:52px;height:52px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:20px;font-weight:800}
+.account-head{display:flex;align-items:center;gap:12px;padding:6px 2px 16px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.account-head div strong{font-size:13.5px;display:block}
+.account-head div small{color:var(--ink-soft);font-size:10.5px}
+.auth-form{display:block}
+.auth-switch{background:transparent;border:0;color:var(--primary);font-size:11.5px;font-weight:700;width:100%;text-align:center;margin-top:12px}
+.list-row{display:flex;align-items:center;justify-content:space-between;padding:14px 2px;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:700}
+.list-row:last-child{border-bottom:0}
+.list-row small{color:var(--ink-soft);font-weight:500;font-size:10px;display:block;margin-top:3px}
+.subtabs{display:flex;gap:18px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.subtab{border:0;background:transparent;padding:0 0 11px;font-size:12.5px;color:var(--ink-soft);font-weight:700}
+.subtab.active{color:var(--ink);border-bottom:2px solid var(--primary)}
+
+/* === نوار پایین (bottom tab bar) === */
+.bottom-nav{position:fixed;bottom:0;right:0;left:0;z-index:70;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:transparent;color:var(--ink-mute);padding:5px 0;font-size:9.5px;font-weight:700;position:relative}
+.nav-btn svg{width:21px;height:21px}
+.nav-btn.active{color:var(--primary)}
+.nav-badge{position:absolute;top:0;right:22%;background:var(--primary);color:#fff;font-size:8.5px;border-radius:20px;min-width:15px;height:15px;display:flex;align-items:center;justify-content:center;padding:0 3px}
+
+/* === پنل مدیریت === */
+.admin-body{background:var(--bg);padding-bottom:0}
+.admin-login{min-height:100vh;display:grid;place-items:center;padding:22px;position:relative}
+.back-home{position:absolute;top:22px;right:22px;color:var(--ink-soft);font-size:11.5px}
+.login-card{width:min(400px,100%);background:var(--surface);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+.centered{justify-content:center;margin-bottom:18px}
+.login-card h1{font-size:20px;margin-bottom:4px;font-weight:800}
+.login-card>p{font-size:11px;color:var(--ink-soft);margin-bottom:18px}
+.admin-header{background:var(--surface);border-bottom:1px solid var(--line)}
+.admin-header-inner{min-height:62px;display:flex;align-items:center;justify-content:space-between}
+.admin-actions{display:flex;align-items:center;gap:10px;font-size:10px;color:var(--ink-soft)}
+.admin-main{padding:22px 0 40px}
+.admin-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.admin-title h1{font-size:19px;margin:0;font-weight:800}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--surface);border-radius:14px;padding:15px;box-shadow:var(--shadow)}
+.stat small{display:block;color:var(--ink-soft);font-size:10px}
+.stat strong{display:block;font-size:19px;margin-top:5px;font-weight:800}
+.admin-tabs{display:flex;gap:16px;border-bottom:1px solid var(--line);margin-bottom:14px;overflow-x:auto}
+.tab{border:0;background:transparent;padding:0 0 11px;color:var(--ink-soft);font-size:12px;font-weight:700;white-space:nowrap}
+.tab.active{color:var(--primary);border-bottom:2px solid var(--primary)}
+.admin-panel{background:var(--surface);border-radius:16px;padding:15px;box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+.panel-head h2{font-size:14.5px;margin:0;font-weight:800}
+.panel-head input{max-width:220px}
+.admin-products{display:grid;gap:8px}.admin-product{cursor:grab;transition:transform .15s,box-shadow .15s,border-color .15s}.admin-product:active{cursor:grabbing}.admin-product.dragging{opacity:.55;transform:scale(.99)}.admin-product.drag-over{border-color:var(--primary);box-shadow:0 0 0 2px color-mix(in srgb,var(--primary) 18%,transparent)}.drag-handle{width:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink-soft);font-size:18px;user-select:none}.drag-handle span{font-size:9px;margin-top:2px;color:var(--primary);font-weight:800}
+.admin-product{display:grid;grid-template-columns:34px 52px minmax(0,1fr) auto auto auto;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px}
+.admin-product img{width:48px;height:48px;border-radius:9px;object-fit:contain;background:var(--bg)}
+.admin-product h3{font-size:11.5px;margin:0 0 3px}
+.admin-product small{color:var(--ink-soft);font-size:9px}
+.admin-price{font-size:10.5px;font-weight:800}
+.cat-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.cat-tags span{font-size:8px;padding:2px 6px;border-radius:8px;color:#fff;font-weight:700}
+.row-actions{display:flex;gap:5px}
+.small-btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 8px;font-size:9.5px;font-weight:700;color:var(--ink)}
+.small-btn.danger{color:#fff;background:var(--danger);border-color:var(--danger)}
+.admin-orders{display:grid;gap:9px}
+.admin-order{border:1px solid var(--line);border-radius:12px;padding:12px}
+.admin-order-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.admin-order h3{font-size:11.5px;margin:0}
+.admin-order small{color:var(--ink-soft)}
+.admin-order-body{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:11px 0;font-size:9.5px}
+.admin-order-body div{background:var(--bg);border-radius:8px;padding:7px}
+.admin-order select{border:1px solid var(--line);border-radius:8px;padding:6px;font-size:9.5px;background:var(--surface)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.file-label input{padding:8px}
+.file-label small{display:block;color:var(--ink-soft);font-weight:400;margin-top:4px}
+.image-preview img{width:100px;height:100px;object-fit:contain;border-radius:10px;background:var(--bg);margin:5px 0}
+.discount-preview{background:var(--primary-soft);color:var(--primary-deep);border-radius:10px;padding:10px;font-size:10.5px;margin:9px 0}
+.discount-preview strong{font-size:15px}
+.category-manager{display:grid;gap:8px;margin-bottom:14px}
+.category-row{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:11px;padding:8px 10px}
+.category-row .dot{width:16px;height:16px;border-radius:5px;flex:none}
+.category-row input[type=text]{border:1px solid var(--line);border-radius:8px;padding:7px;flex:1;font-size:11px}
+.category-row input[type=color]{width:30px;height:30px;border:0;border-radius:8px;padding:0;background:none}
+.cat-checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.cat-checks label{display:flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:20px;padding:6px 10px;font-size:10.5px;font-weight:600;color:var(--ink);width:auto}
+.toast{position:fixed;left:14px;bottom:90px;background:var(--ink);color:#fff;border-radius:10px;padding:11px 15px;font-size:11px;z-index:100}
+
+/* === واکنش‌گرا === */
+@media(min-width:640px){.product-grid{grid-template-columns:repeat(3,1fr)}.stats-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:380px){.product-grid{gap:8px}.info-strip{flex-direction:column;align-items:stretch;text-align:center}}
+
+/* === بازطراحی جدید فروشگاه === */
+.hero-banner{position:relative;margin:12px 0 18px;border-radius:18px;overflow:hidden;background:#f0f1f2;min-height:155px}
+.hero-banner-image{width:100%;height:155px;object-fit:cover;display:none}
+.hero-banner.has-image .hero-banner-image{display:block}
+.hero-banner.has-image .hero-fallback{display:none}
+.hero-fallback{min-height:155px;padding:24px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#fff1ea,#fff);font-size:15px}
+.hero-fallback strong{font-size:20px;max-width:75%;line-height:1.7}
+.hero-fallback span{font-size:11px;color:var(--ink-soft);margin-top:7px}
+.quick-categories{padding:2px 0 6px}
+.link-btn{border:0;background:none;color:var(--primary);font-size:11px;font-weight:800;padding:4px}
+.category-bottom-row{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;padding:2px 0 8px}
+.category-bottom-row::-webkit-scrollbar{display:none}
+.category-card{flex:0 0 78px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:9px 6px;text-align:center}
+.category-card .cat-icon{width:44px;height:44px;border-radius:50%;margin:0 auto 7px;display:grid;place-items:center;font-size:18px}
+.category-card span{display:block;font-size:9.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-grid.compact{grid-template-columns:repeat(2,1fr)}
+.delivery-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.delivery-option{border:1.5px solid var(--line);border-radius:12px;padding:11px;background:var(--surface);font-size:11px;font-weight:700}
+.delivery-option input{width:auto;margin-left:6px}
+.delivery-option.selected{border-color:var(--primary);background:var(--primary-soft)}
+.profile-form{display:grid;gap:9px;margin:10px 0 14px}
+.profile-form label,.auth-form label{display:grid;gap:6px;font-size:10.5px;font-weight:700}
+@media(max-width:420px){.delivery-options{grid-template-columns:1fr}.hero-fallback strong{font-size:17px}}
+
+.toggle-grid{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0}
+.check-row{display:flex!important;align-items:center;gap:8px;background:var(--bg);padding:10px;border-radius:10px;font-size:11px!important}
+.check-row input{width:auto!important}
+.admin-panel-inner{background:var(--surface);border-radius:var(--radius);padding:16px}
+.customer-card{background:var(--surface);border-radius:14px;padding:14px;margin:9px 0;box-shadow:var(--shadow);display:grid;gap:6px}
+.customer-card .customer-head{display:flex;justify-content:space-between;gap:10px}
+.customer-card small{color:var(--ink-soft);font-size:10px;line-height:1.8}
+.eye-btn{border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:6px 9px}
+
+/* === اصلاحات موبایل نسخه 4 === */
+@media(max-width:639px){
+  .container{width:calc(100% - 20px)}
+  .site-header .container{width:calc(100% - 20px)}
+  .header-top{min-height:54px;padding:6px 0}
+  .brand strong{font-size:14px}.brand small{font-size:8.5px}
+  .brand-mark{width:34px;height:34px;border-radius:10px}
+  .search-wrap{height:42px;margin-bottom:8px}
+  .hero-banner{min-height:120px;margin:8px 0 14px;border-radius:14px}
+  .hero-banner-image{height:120px}
+  .hero-fallback{min-height:120px;padding:18px}
+  .hero-fallback strong{font-size:15px;max-width:85%}
+  .section{padding:14px 0 6px}
+  .section-head{margin-bottom:9px}.section-head h2{font-size:14px}
+  .filter-pills{margin-bottom:8px}.pill{padding:6px 11px;font-size:10px}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .product-card{content-visibility:auto;contain-intrinsic-size:260px;padding:8px;border-radius:13px}
+  .product-image{aspect-ratio:1/1;height:auto;border-radius:10px}
+  .product-card h3{font-size:11px;margin:4px 0}.final-price{font-size:12px}.consumer{font-size:8px}.unit{font-size:7.5px}
+  .add-btn{padding:8px;font-size:10.5px;margin-top:7px}
+  .discount-badge{min-width:30px;height:30px;font-size:8px;top:5px;right:5px}
+  .category-card{flex-basis:72px;padding:7px 5px}.category-card .cat-icon{width:40px;height:40px}
+  .cart-drawer{width:100%;max-width:none}
+  .sheet-card{padding:15px;max-height:88vh}
+  .modal{padding:8px}.modal-card{border-radius:16px;padding:16px;max-height:94vh}
+  .modal-card h2{font-size:16px;margin-bottom:13px}
+  .auth-form label,.modal-card label{font-size:10.5px;margin-bottom:9px}
+  .auth-form input,.modal-card input,.modal-card textarea{padding:10px;font-size:12px}
+  .primary-btn{padding:11px 17px;font-size:12px}
+  .bottom-nav{padding-top:5px}
+  .nav-btn{font-size:8.5px;padding:4px 0}.nav-btn svg{width:20px;height:20px}
+}
+@media(min-width:640px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.password-help{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f7f7f7;color:var(--ink-soft);font-size:12px;line-height:1.9;text-align:center}.password-help a{color:var(--accent);font-weight:800;text-decoration:none;white-space:nowrap}
+
+/* حساب کاربری ساده و موبایل‌محور */
+.account-welcome{text-align:center;padding:14px 4px 8px}.account-welcome h3{margin:8px 0 6px;font-size:18px}.account-welcome p{margin:0 auto 18px;color:var(--ink-soft);font-size:12px;line-height:1.9;max-width:300px}.account-choice-icon{width:64px;height:64px;border-radius:20px;background:#eef8f3;display:grid;place-items:center;font-size:30px;margin:0 auto 8px}.account-choice-actions{display:grid;gap:10px}.back-account{border:0;background:transparent;color:var(--ink-soft);font-size:12px;padding:0 0 10px;cursor:pointer}.tracking-details{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.tracking-details p{margin:5px 0;font-size:11px;line-height:1.9}.order-card{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px;border:1px solid #edf0ee;border-radius:14px;margin-top:8px;background:#fff}.order-card .status{justify-self:start;background:#eef8f3;color:#168a58;border-radius:999px;padding:4px 8px;font-size:10px}.order-card .outline-btn{justify-self:end}.account-head{margin-bottom:12px}
+@media(max-width:520px){.sheet-card{max-height:92vh}.auth-form label{font-size:12px}.account-choice-actions button{min-height:46px}.order-card{font-size:12px}}
+
+/* === کارت محصول با کنترل تعداد === */
+.product-qty-control{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:9px;background:var(--ink);border-radius:10px;padding:5px;color:#fff}
+.product-qty-control button{width:30px;height:30px;border:0;border-radius:8px;background:#fff;color:var(--ink);font-size:18px;font-weight:800;line-height:1}
+.product-qty-control span{min-width:26px;text-align:center;font-size:12px;font-weight:800}
+.added-note{font-size:9px;color:var(--green);text-align:center;margin-top:5px;font-weight:700}
+
+/* === صفحه رسید نهایی === */
+.success-receipt{position:relative;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#fff8f3 55%,#eefaf5 100%);border:1px solid #ffffff;box-shadow:0 18px 50px #1b3b2a18}
+.success-receipt:before,.success-receipt:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none}
+.success-receipt:before{width:170px;height:170px;background:#ffeadf;top:-70px;right:-60px}
+.success-receipt:after{width:140px;height:140px;background:#e3f7ed;bottom:-65px;left:-55px}
+.success-top{text-align:center;position:relative;z-index:1;padding:8px 0 14px}
+.success-icon{width:68px;height:68px;margin:0 auto 10px;border-radius:22px;background:#e9f8f0;color:#168a58;display:grid;place-items:center;font-size:32px;box-shadow:0 8px 25px #168a5818}
+.success-top h1{font-size:22px;margin:0 0 5px;font-weight:900}
+.success-top p{font-size:11px;color:var(--ink-soft);margin:0;line-height:1.9}
+.big-invoice{position:relative;z-index:1;text-align:center;background:var(--ink);color:#fff;border-radius:18px;padding:16px;margin:8px 0 16px}
+.big-invoice small{display:block;color:#cfd2d0;font-size:10px;margin-bottom:5px}
+.big-invoice strong{display:block;font-size:34px;letter-spacing:2px;line-height:1.2}
+.receipt-products{position:relative;z-index:1;background:#ffffffb8;border:1px solid #ffffff;border-radius:15px;padding:12px;margin-bottom:12px}
+.receipt-products h3{font-size:12px;margin:0 0 8px}
+.receipt-product{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:10.5px}
+.receipt-product:last-child{border-bottom:0}
+.receipt-product b{font-size:11px}
+.receipt-info{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.receipt-info div{background:#ffffffb8;border:1px solid #fff;border-radius:12px;padding:9px;font-size:9.5px;color:var(--ink-soft)}
+.receipt-info b{display:block;color:var(--ink);font-size:10.5px;margin-top:3px}
+.receipt-payment{position:relative;z-index:1;background:var(--primary-soft);border-radius:14px;padding:12px;font-size:10.5px;line-height:2;text-align:center;color:var(--primary-deep)}
+.receipt-payment strong{font-size:12px}
+.receipt-help{position:relative;z-index:1;text-align:center;color:var(--ink-soft);font-size:10.5px;line-height:2;margin:13px 0 0}
+.receipt-actions{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+@media(max-width:480px){.receipt-actions{grid-template-columns:1fr}.big-invoice strong{font-size:31px}.receipt-info{grid-template-columns:1fr 1fr}}
+
+/* === نصب فروشگاه روی صفحه اصلی === */
+.install-prompt{position:fixed;right:12px;left:12px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:2000;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ffffff;background:rgba(255,255,255,.97);border-radius:18px;box-shadow:0 16px 45px rgba(24,45,35,.18);backdrop-filter:blur(12px)}
+.install-prompt.hidden{display:none}
+.install-prompt-icon{width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:#fff1ea;display:grid;place-items:center;font-size:22px}
+.install-prompt-text{min-width:0;flex:1}.install-prompt-text strong{display:block;font-size:11px;line-height:1.8;color:var(--ink)}.install-prompt-text span{display:block;font-size:9px;color:var(--ink-soft);margin-top:1px}
+.install-prompt .primary-btn{width:auto;min-width:72px;padding:9px 12px;font-size:10px;margin:0}.install-dismiss{border:0;background:transparent;color:#8b938e;font-size:22px;line-height:1;padding:3px;cursor:pointer}
+.ios-install-guide{position:fixed;inset:0;z-index:2100;background:rgba(20,30,25,.48);display:grid;place-items:end center;padding:16px}.ios-install-guide.hidden{display:none}.ios-install-card{width:min(500px,100%);background:#fff;border-radius:22px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center}.ios-install-card h3{margin:0 0 7px;font-size:16px}.ios-install-card p{margin:0;color:var(--ink-soft);font-size:11px;line-height:2}.ios-install-card .share-mark{font-size:26px;margin:8px}.ios-install-card button{margin-top:12px}
+@media(min-width:700px){.install-prompt{left:auto;max-width:430px}}
+
+/* === نمایش بزرگ و توضیحات محصول === */
+body.no-scroll{overflow:hidden}
+.product-card{content-visibility:auto;contain-intrinsic-size:260px;cursor:pointer}
+.product-detail-sheet{position:fixed;inset:0;background:rgba(13,13,14,.58);z-index:150;display:none;align-items:flex-end;justify-content:center;padding:0}
+.product-detail-sheet.open{display:flex}
+.product-detail-card{position:relative;width:min(680px,100%);max-height:94vh;overflow:auto;background:var(--surface);border-radius:24px 24px 0 0;box-shadow:0 -18px 60px rgba(0,0,0,.22);animation:productSheetIn .22s ease}
+.product-detail-handle{width:42px;height:4px;border-radius:8px;background:var(--line);margin:9px auto 7px}
+.product-detail-close{position:absolute;left:12px;top:10px;width:38px;height:38px;border:0;border-radius:50%;background:#ffffffdd;color:var(--ink);font-size:25px;z-index:3;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.product-detail-image-wrap{position:relative;width:100%;aspect-ratio:1/1;background:var(--bg);overflow:hidden;display:grid;place-items:center}
+.product-detail-image-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+.detail-placeholder{font-size:70px}.detail-badge{top:12px;right:12px}
+.product-detail-content{padding:18px 18px calc(22px + env(safe-area-inset-bottom))}
+.product-detail-stock{font-size:10px;color:var(--green);font-weight:700;margin-bottom:6px}
+.product-detail-content h2{font-size:20px;line-height:1.6;margin:0 0 6px;font-weight:900}
+.product-detail-price{display:flex;align-items:end;gap:7px;margin:5px 0 13px;font-size:12px}.product-detail-price strong{font-size:19px}.product-detail-price small{color:var(--ink-soft);font-size:10px}
+.product-detail-description{margin:0 0 18px;color:var(--ink-soft);font-size:12px;line-height:2.1;white-space:pre-wrap;min-height:24px}
+.product-detail-actions{margin-top:8px}.detail-qty{display:flex;align-items:center;justify-content:center;gap:18px;background:var(--ink);color:#fff;border-radius:13px;padding:8px}.detail-qty button{width:38px;height:38px;border:0;border-radius:10px;background:#fff;color:var(--ink);font-size:22px;font-weight:900}.detail-qty span{min-width:32px;text-align:center;font-size:14px;font-weight:900}.product-detail-actions .added-note{text-align:center;margin-top:8px;font-size:10px;color:var(--green);font-weight:700}
+@keyframes productSheetIn{from{transform:translateY(20px);opacity:.7}to{transform:translateY(0);opacity:1}}
+@media(min-width:700px){.product-detail-sheet{align-items:center;padding:18px}.product-detail-card{border-radius:24px;max-width:620px}.product-detail-image-wrap{border-radius:24px 24px 0 0}}
+
+/* === فید محصولات: نمایش مرحله‌ای برای سبک ماندن صفحه === */
+.products-more{display:grid;gap:8px;justify-items:center;padding:18px 0 8px}.products-more span{font-size:10px;color:var(--ink-soft)}.products-more .primary-btn{width:min(280px,100%);box-shadow:0 8px 24px color-mix(in srgb,var(--primary) 18%,transparent)}#productsFeedSentinel{height:2px;margin-bottom:10px}
+
+/* Product pagination safety: JS controls visibility explicitly. */
+#productsMore[style*="display: grid"]{display:grid!important}
+#productsMore[style*="display: none"]{display:none!important}
